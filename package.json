@@ -1,16 +1,16 @@
 {
     "name": "blocks-builder",
-    "version": "1.0.0",
-    "description": "A CLI tool to quickly build gutenberg blocks",
+    "version": "1.0.2",
+    "description": "A CLI tool to quickly build your Gutenberg plugins",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "npm link",
+        "stop": "npm unlink",
+        "publish:test": "npm publish --dry-run"
     },
     "author": "Marcus Thelin",
     "license": "MIT",
-    "bin": {
-        "blocks-builder": "./index.js"
-    },
+    "bin": "./index.js",
     "dependencies": {
         "yargs": "^15.4.0"
     }
