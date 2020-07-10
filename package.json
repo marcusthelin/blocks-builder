@@ -1,0 +1,17 @@
+{
+    "name": "@24hr/blocks-builder",
+    "version": "1.0.0",
+    "description": "A CLI tool to quickly build gutenberg blocks",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Marcus Thelin",
+    "license": "MIT",
+    "bin": {
+        "blocks-builder": "./index.js"
+    },
+    "dependencies": {
+        "yargs": "^15.4.0"
+    }
+}
