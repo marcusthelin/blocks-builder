@@ -1,9 +1,8 @@
+const yargs = require('yargs');
 /**
  * Initialize the CLI, e.g parsing the arguments.
  * @returns {Object} arguments
  */
-
-const yargs = require('yargs');
 
 module.exports = () =>
     yargs

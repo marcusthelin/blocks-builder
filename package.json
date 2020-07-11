@@ -6,13 +6,22 @@
     "scripts": {
         "dev": "npm link",
         "stop": "npm unlink",
-        "publish:test": "npm publish --dry-run"
+        "publish:test": "npm publish --dry-run",
+        "build": "webpack && chmod -R 755 ./dist"
     },
     "repository": "https://github.com/marcusthelin/blocks-builder",
     "author": "Marcus Thelin",
     "license": "MIT",
-    "bin": "./index.js",
+    "bin": "./dist/blocks-builder.js",
     "dependencies": {
         "yargs": "^15.4.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.10.4",
+        "@babel/preset-env": "^7.10.4",
+        "babel-loader": "^8.1.0",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.12",
+        "webpack-node-externals": "^2.3.0"
     }
 }

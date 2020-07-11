@@ -1,8 +1,3 @@
-#!/usr/bin/env node
-
-const path = require('path');
-const fs = require('fs');
-
 const { logger, readJsonFile, argumentParser, buildCommander, validateJson } = require('./lib');
 
 // const blockPlugins = require('./block-plugins.json');
