@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const webpack = require('webpack');
 module.exports = {
     mode: 'production',
     entry: './src/index.js',
@@ -17,13 +18,17 @@ module.exports = {
                 exclude: [path.resolve(__dirname, 'node_modules')],
                 loader: 'babel-loader',
                 options: {
-                    presets: [
-                        ['@babel/preset-env', { targets: { node: true }, modules: 'commonjs' }],
-                    ],
+                    presets: [['@babel/preset-env', { targets: { node: '10' } }]],
                 },
             },
         ],
     },
     target: 'node',
     externals: [nodeExternals()],
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: '#!/usr/bin/env node',
+            raw: true,
+        }),
+    ],
 };
