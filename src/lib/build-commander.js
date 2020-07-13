@@ -26,9 +26,9 @@ function commander(plugin) {
         });
         global.spawnedCommands.push(cmd);
         cmd.once('error', reject);
-        cmd.once('exit', ({ code }) => {
+        cmd.once('exit', code => {
             if (code === 0) {
-                resolve();
+                resolve(true);
             } else {
                 reject(`Could not build ${plugin.name}! Exit status: ${code}`);
             }
@@ -54,7 +54,9 @@ module.exports = async (plugins, pluginsPath) => {
         const pluginPath = path.resolve(pluginsPath, pluginInformation.name);
         pluginInformation.path = pluginPath;
         const successfulCommand = await commander(pluginInformation).catch(logger);
-        processes.push(successfulCommand);
+        if (successfulCommand) {
+            processes.push(successfulCommand);
+        }
     }
     return processes;
 };

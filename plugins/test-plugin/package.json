@@ -1,0 +1,6 @@
+{
+    "name": "test-plugin",
+    "scripts": {
+        "build": "echo I am test plugin"
+    }
+}

@@ -2,3 +2,5 @@
 package-lock.json
 src
 webpack.config.js
+plugins
+test.json
