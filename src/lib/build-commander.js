@@ -17,8 +17,7 @@ function commander(plugin) {
     const buildCmd = plugin.buildCmd || 'build';
     return new Promise((resolve, reject) => {
         if (!fs.existsSync(plugin.path)) {
-            logger(`Path ${plugin.path} does not exist!`);
-            return reject();
+            return reject(`Path ${plugin.path} does not exist!`);
         }
         logger(`Building ${plugin.name}`);
         const cmd = spawn('npm', [`--prefix ${plugin.path} run ${buildCmd}`], {
@@ -27,11 +26,17 @@ function commander(plugin) {
         });
         global.spawnedCommands.push(cmd);
         cmd.once('error', reject);
-        cmd.once('exit', resolve);
+        cmd.once('exit', ({ code }) => {
+            if (code === 0) {
+                resolve();
+            } else {
+                reject(`Could not build ${plugin.name}! Exit status: ${code}`);
+            }
+        });
     });
 }
 
-module.exports = (plugins, pluginsPath) => {
+module.exports = async (plugins, pluginsPath) => {
     // Loop through the plugin paths and run build command
     const processes = [];
     for (const plugin of plugins) {
@@ -48,8 +53,8 @@ module.exports = (plugins, pluginsPath) => {
 
         const pluginPath = path.resolve(pluginsPath, pluginInformation.name);
         pluginInformation.path = pluginPath;
-        const buildProcess = commander(pluginInformation);
-        processes.push(buildProcess);
+        const successfulCommand = await commander(pluginInformation).catch(logger);
+        processes.push(successfulCommand);
     }
-    return Promise.allSettled(processes);
+    return processes;
 };
